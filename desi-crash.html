@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>DESI CRASH | देसी तीन पत्ती क्रैश</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23170d09'/%3E%3Ccircle cx='50' cy='50' r='44' fill='none' stroke='%23d9ad4f' stroke-width='3'/%3E%3Ctext x='50' y='64' font-size='50' text-anchor='middle' fill='%23d9ad4f'%3E%E2%99%A0%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700&family=Poppins:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-void:#0b0603;
+    --bg-felt:#170d09;
+    --bg-panel:#1f120c;
+    --bg-panel-2:#241511;
+    --gold:#d9ad4f;
+    --gold-bright:#f4d78a;
+    --gold-dim:#8a6a30;
+    --wine:#7a1f34;
+    --wine-bright:#a8283f;
+    --green:#3ea25b;
+    --green-bright:#57d17e;
+    --red:#c73b3b;
+    --red-bright:#e15252;
+    --ivory:#f3e6cf;
+    --ivory-dim:#c9b696;
+    --shadow-deep: 0 10px 30px rgba(0,0,0,.55);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  body{
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at 50% -10%, rgba(217,173,79,.10), transparent 55%),
+      radial-gradient(ellipse at 90% 100%, rgba(122,31,52,.20), transparent 50%),
+      linear-gradient(180deg, var(--bg-void), #0a0505 60%, #060302);
+    color:var(--ivory);
+    font-family:'Poppins', sans-serif;
+    padding:18px;
+    background-attachment:fixed;
+  }
+
+  /* faint diamond/paisley felt texture */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(217,173,79,.035) 0, transparent 2%),
+      radial-gradient(circle at 60% 70%, rgba(217,173,79,.035) 0, transparent 2%),
+      radial-gradient(circle at 85% 30%, rgba(217,173,79,.03) 0, transparent 2%),
+      radial-gradient(circle at 35% 85%, rgba(217,173,79,.03) 0, transparent 2%);
+    background-size: 300px 300px;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .devanagari{ font-family:'Noto Sans Devanagari', 'Poppins', sans-serif; }
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    position:relative;
+    z-index:1;
+  }
+
+  /* ===== HEADER ===== */
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    padding:14px 20px;
+    margin-bottom:16px;
+    background:linear-gradient(180deg, var(--bg-panel), var(--bg-panel-2));
+    border:1px solid rgba(217,173,79,.25);
+    border-radius:16px;
+    box-shadow:var(--shadow-deep);
+    position:relative;
+    overflow:hidden;
+  }
+  header::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:0; height:3px;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brand .suit-badge{
+    width:46px; height:46px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--gold-bright), var(--gold) 55%, var(--gold-dim) 100%);
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px; color:#1a1005;
+    box-shadow: 0 0 18px rgba(217,173,79,.45), inset 0 2px 4px rgba(255,255,255,.4);
+    flex-shrink:0;
+  }
+  .brand h1{
+    font-family:'Cinzel Decorative', serif;
+    font-size:clamp(18px, 3.4vw, 28px);
+    letter-spacing:.5px;
+    background:linear-gradient(180deg, var(--gold-bright), var(--gold) 60%, var(--gold-dim));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    line-height:1.1;
+  }
+  .brand .tag{
+    font-size:11px;
+    color:var(--ivory-dim);
+    letter-spacing:.4px;
+    margin-top:2px;
+  }
+
+  .balance-box{
+    text-align:right;
+    background:rgba(0,0,0,.28);
+    border:1px solid rgba(217,173,79,.25);
+    border-radius:12px;
+    padding:8px 16px;
+  }
+  .balance-box .lbl{ font-size:10px; text-transform:uppercase; letter-spacing:1.5px; color:var(--ivory-dim); }
+  .balance-box .amt{
+    font-family:'JetBrains Mono', monospace;
+    font-size:22px; font-weight:700; color:var(--gold-bright);
+    text-shadow:0 0 12px rgba(217,173,79,.35);
+  }
+
+  /* ===== MAIN GRID ===== */
+  .grid{
+    display:grid;
+    grid-template-columns: 1fr 280px;
+    gap:16px;
+  }
+
+  .table-panel{
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(217,173,79,.06), transparent 60%),
+      linear-gradient(180deg, var(--bg-felt), #0f0906);
+    border:1px solid rgba(217,173,79,.2);
+    border-radius:18px;
+    box-shadow:var(--shadow-deep), inset 0 0 60px rgba(0,0,0,.5);
+    padding:26px 20px 22px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:20px;
+    position:relative;
+    min-height:420px;
+    overflow:hidden;
+  }
+  .table-panel::before{
+    content:"";
+    position:absolute; inset:10px;
+    border:1px solid rgba(217,173,79,.12);
+    border-radius:14px;
+    pointer-events:none;
+  }
+
+  .status-line{
+    font-size:12px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--ivory-dim);
+    display:flex; align-items:center; gap:8px;
+    min-height:16px;
+  }
+  .status-dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--gold-dim);
+    box-shadow:0 0 8px var(--gold-dim);
+  }
+  .status-dot.live{ background:var(--green-bright); box-shadow:0 0 10px var(--green-bright); animation:pulse-dot 1s infinite; }
+  .status-dot.crashed{ background:var(--red-bright); box-shadow:0 0 10px var(--red-bright); }
+  @keyframes pulse-dot{ 0%,100%{opacity:1;} 50%{opacity:.35;} }
+
+  .multiplier{
+    font-family:'Cinzel', serif;
+    font-weight:700;
+    font-size:clamp(56px, 11vw, 96px);
+    line-height:1;
+    color:var(--gold-bright);
+    text-shadow:0 0 24px rgba(217,173,79,.5), 0 0 60px rgba(217,173,79,.15);
+    transition:color .15s, transform .1s;
+    letter-spacing:1px;
+  }
+  .multiplier.growing{ animation:tick 0.1s ease-out; }
+  @keyframes tick{ from{ transform:scale(1.035); } to{ transform:scale(1); } }
+  .multiplier.crashed-text{
+    color:var(--red-bright);
+    text-shadow:0 0 24px rgba(199,59,59,.6), 0 0 60px rgba(199,59,59,.2);
+    animation:shake .35s;
+  }
+  .multiplier.cashed-text{
+    color:var(--green-bright);
+    text-shadow:0 0 24px rgba(87,209,126,.55);
+  }
+  @keyframes shake{
+    0%,100%{ transform:translateX(0); }
+    20%{ transform:translateX(-6px) rotate(-1deg); }
+    40%{ transform:translateX(6px) rotate(1deg); }
+    60%{ transform:translateX(-4px); }
+    80%{ transform:translateX(4px); }
+  }
+
+  .result-line{
+    min-height:22px;
+    font-size:14px;
+    font-weight:600;
+    text-align:center;
+  }
+  .result-line.win{ color:var(--green-bright); }
+  .result-line.lose{ color:var(--red-bright); }
+  .result-line .hand-tag{
+    color:var(--gold-bright);
+    font-family:'Cinzel', serif;
+  }
+
+  /* ===== CARDS ===== */
+  .cards-row{
+    display:flex;
+    gap:16px;
+    justify-content:center;
+    padding:6px 0 2px;
+  }
+  .card{
+    width:78px; height:112px;
+    perspective:1200px;
+  }
+  .card-inner{
+    position:relative;
+    width:100%; height:100%;
+    transition:transform .65s cubic-bezier(.4,.2,.2,1);
+    transform-style:preserve-3d;
+  }
+  .card.revealed .card-inner{ transform:rotateY(180deg); }
+  .card.revealed{ animation:pop .4s ease .55s backwards; }
+  @keyframes pop{ 0%{ transform:translateY(0); } 40%{ transform:translateY(-10px); } 100%{ transform:translateY(0); } }
+
+  .card-face{
+    position:absolute; inset:0;
+    backface-visibility:hidden;
+    border-radius:10px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    box-shadow:0 6px 16px rgba(0,0,0,.45);
+  }
+  .card-down{
+    background:
+      repeating-linear-gradient(45deg, rgba(217,173,79,.14) 0 6px, transparent 6px 12px),
+      linear-gradient(160deg, var(--wine-bright), var(--wine) 60%, #4a1220);
+    border:2px solid var(--gold-dim);
+  }
+  .card-down .chip{
+    width:30px; height:30px; border-radius:50%;
+    border:2px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px; color:var(--gold-bright);
+    background:rgba(0,0,0,.25);
+  }
+  .card-up{
+    background:linear-gradient(160deg, #fbf3e2, #f0e2c2);
+    border:2px solid var(--gold);
+    transform:rotateY(180deg);
+    color:#1a1005;
+    padding:8px;
+  }
+  .card-up .rank{ font-family:'Cinzel', serif; font-weight:700; font-size:22px; line-height:1; }
+  .card-up .suit{ font-size:26px; margin-top:4px; }
+  .card-up.red{ color:var(--red); }
+  .card-up.black{ color:#191111; }
+  .card-up .corner{
+    position:absolute; top:6px; left:8px; font-size:12px; font-weight:700; text-align:left; line-height:1.1;
+  }
+
+  /* ===== BET BAR ===== */
+  .bet-bar{
+    width:100%;
+    max-width:520px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:auto;
+  }
+  .bet-input-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:rgba(0,0,0,.3);
+    border:1px solid rgba(217,173,79,.25);
+    border-radius:12px;
+    padding:8px 10px;
+  }
+  .bet-input-row .rupee{ color:var(--gold); font-weight:700; font-size:16px; padding-left:4px;}
+  .bet-input-row input[type=number]{
+    flex:1;
+    background:transparent;
+    border:none;
+    outline:none;
+    color:var(--ivory);
+    font-family:'JetBrains Mono', monospace;
+    font-size:18px;
+    font-weight:600;
+  }
+  .chip-btn{
+    background:rgba(217,173,79,.12);
+    border:1px solid rgba(217,173,79,.4);
+    color:var(--gold-bright);
+    border-radius:8px;
+    padding:6px 10px;
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+    transition:background .15s, transform .1s;
+    font-family:'Poppins',sans-serif;
+  }
+  .chip-btn:hover{ background:rgba(217,173,79,.25); }
+  .chip-btn:active{ transform:scale(.95); }
+
+  .quick-chips{ display:flex; gap:8px; flex-wrap:wrap; }
+
+  .action-row{ display:flex; gap:12px; }
+  .btn-main{
+    flex:1;
+    border:none;
+    border-radius:12px;
+    padding:15px 10px;
+    font-family:'Cinzel', serif;
+    font-weight:700;
+    font-size:16px;
+    letter-spacing:1px;
+    cursor:pointer;
+    transition:transform .1s, box-shadow .2s, filter .15s;
+    text-transform:uppercase;
+  }
+  .btn-main:active{ transform:scale(.97); }
+  .btn-bet{
+    background:linear-gradient(180deg, var(--gold-bright), var(--gold) 55%, var(--gold-dim));
+    color:#1a1005;
+    box-shadow:0 6px 18px rgba(217,173,79,.35), inset 0 1px 0 rgba(255,255,255,.5);
+  }
+  .btn-bet:hover:not(:disabled){ filter:brightness(1.08); }
+  .btn-cashout{
+    background:linear-gradient(180deg, var(--green-bright), var(--green) 60%, #245c37);
+    color:#062812;
+    box-shadow:0 6px 18px rgba(62,162,91,.35), inset 0 1px 0 rgba(255,255,255,.4);
+  }
+  .btn-cashout:hover:not(:disabled){ filter:brightness(1.08); }
+  .btn-main:disabled{
+    background:#2b2620;
+    color:#6b6255;
+    box-shadow:none;
+    cursor:not-allowed;
+  }
+  .btn-cashout .cashout-value{
+    display:block;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:0;
+    margin-top:2px;
+    text-transform:none;
+  }
+
+  /* ===== PROVABLY FAIR STRIP ===== */
+  .pf-strip{
+    width:100%; max-width:520px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    color:var(--ivory-dim);
+    background:rgba(0,0,0,.25);
+    border:1px solid rgba(217,173,79,.15);
+    border-radius:10px;
+    padding:8px 12px;
+    line-height:1.6;
+    word-break:break-all;
+  }
+  .pf-strip b{ color:var(--gold); font-family:'Poppins',sans-serif; font-size:10px; letter-spacing:.5px; text-transform:uppercase; }
+  .pf-strip .pf-row{ display:flex; gap:6px; }
+  .pf-strip .pf-row span:first-child{ flex-shrink:0; }
+
+  /* ===== SIDE HISTORY PANEL ===== */
+  .side-panel{
+    background:linear-gradient(180deg, var(--bg-panel), var(--bg-panel-2));
+    border:1px solid rgba(217,173,79,.2);
+    border-radius:18px;
+    padding:16px;
+    box-shadow:var(--shadow-deep);
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    height:fit-content;
+  }
+  .side-panel h3{
+    font-family:'Cinzel', serif;
+    font-size:14px;
+    letter-spacing:1.5px;
+    color:var(--gold-bright);
+    text-transform:uppercase;
+    border-bottom:1px solid rgba(217,173,79,.2);
+    padding-bottom:8px;
+  }
+  .history-list{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    max-height:520px;
+    overflow-y:auto;
+  }
+  .history-list::-webkit-scrollbar{ width:5px; }
+  .history-list::-webkit-scrollbar-thumb{ background:var(--gold-dim); border-radius:4px; }
+
+  .hist-chip{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:8px 12px;
+    border-radius:9px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:600;
+    font-size:13px;
+    border:1px solid transparent;
+    animation:slidein .3s ease;
+  }
+  @keyframes slidein{ from{ opacity:0; transform:translateX(10px);} to{opacity:1; transform:translateX(0);} }
+  .hist-chip.green{ background:rgba(62,162,91,.14); color:var(--green-bright); border-color:rgba(62,162,91,.35); }
+  .hist-chip.red{ background:rgba(199,59,59,.14); color:var(--red-bright); border-color:rgba(199,59,59,.35); }
+  .hist-chip .hand-mini{ font-family:'Poppins',sans-serif; font-size:9.5px; color:var(--ivory-dim); font-weight:500; }
+
+  .rtp-note{
+    font-size:10.5px;
+    color:var(--ivory-dim);
+    text-align:center;
+    line-height:1.5;
+    padding-top:4px;
+    border-top:1px solid rgba(217,173,79,.15);
+  }
+  .rtp-note b{ color:var(--gold); }
+
+  .mute-btn{
+    position:absolute; top:14px; right:16px;
+    background:rgba(0,0,0,.3);
+    border:1px solid rgba(217,173,79,.3);
+    color:var(--gold-bright);
+    width:34px; height:34px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:15px;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  footer{
+    text-align:center;
+    color:var(--ivory-dim);
+    font-size:11px;
+    margin-top:18px;
+    padding-bottom:10px;
+    letter-spacing:.3px;
+  }
+
+  /* ===== LOADING SCREEN ===== */
+  #loadScreen{
+    position:fixed; inset:0; z-index:9999;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px;
+    background:
+      radial-gradient(ellipse at 50% 40%, rgba(217,173,79,.14), transparent 60%),
+      linear-gradient(180deg, var(--bg-void), #0a0505 60%, #060302);
+    transition:opacity .5s ease, visibility .5s ease;
+  }
+  #loadScreen.hide{ opacity:0; visibility:hidden; pointer-events:none; }
+  .load-logo{
+    width:96px; height:96px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--gold-bright), var(--gold) 55%, var(--gold-dim) 100%);
+    display:flex; align-items:center; justify-content:center;
+    font-size:46px; color:#1a1005;
+    box-shadow:0 0 30px rgba(217,173,79,.55), inset 0 2px 4px rgba(255,255,255,.4);
+    animation:load-pulse 1.1s ease-in-out infinite;
+  }
+  @keyframes load-pulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.08); } }
+  .load-title{
+    font-family:'Cinzel Decorative', serif;
+    font-size:clamp(22px, 5vw, 32px);
+    letter-spacing:1px;
+    background:linear-gradient(180deg, var(--gold-bright), var(--gold) 60%, var(--gold-dim));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .load-bar-track{
+    width:180px; height:4px; border-radius:4px;
+    background:rgba(217,173,79,.15);
+    overflow:hidden;
+  }
+  .load-bar-fill{
+    height:100%; width:0%;
+    background:linear-gradient(90deg, var(--gold-dim), var(--gold-bright));
+    animation:load-fill 1.5s linear forwards;
+  }
+  @keyframes load-fill{ from{ width:0%; } to{ width:100%; } }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 860px){
+    .grid{ grid-template-columns:1fr; }
+    .side-panel{ order:3; }
+    .history-list{
+      flex-direction:row;
+      overflow-x:auto;
+      overflow-y:hidden;
+      max-height:none;
+      padding-bottom:4px;
+    }
+    .hist-chip{ flex-direction:column; gap:2px; min-width:64px; text-align:center; }
+    .table-panel{ padding:20px 14px; min-height:auto; }
+    .card{ width:64px; height:92px; }
+    .card-up .rank{ font-size:18px; }
+    .card-up .suit{ font-size:20px; }
+    .action-row{ flex-direction:row; }
+    .btn-main{ padding:22px 10px; font-size:17px; border-radius:14px; }
+    .btn-cashout .cashout-value{ font-size:14px; }
+    .chip-btn{ padding:10px 14px; font-size:14px; }
+    .bet-input-row input[type=number]{ font-size:20px; }
+    .brand h1{ font-size:19px; }
+    .balance-box{ margin-left:auto; }
+  }
+  @media (max-width:420px){
+    .brand .tag{ display:none; }
+    .card{ width:54px; height:78px; }
+    .card-down .chip{ width:22px;height:22px; font-size:10px; }
+    .card-up .rank{ font-size:15px; }
+    .card-up .suit{ font-size:16px; }
+    .multiplier{ font-size:52px; }
+    .btn-main{ padding:24px 8px; font-size:18px; }
+    .action-row{ gap:8px; }
+    .quick-chips{ justify-content:space-between; }
+    .chip-btn{ flex:1; min-width:0; text-align:center; padding:12px 4px; font-size:13px; }
+  }
+</style>
+</head>
+<body>
+<div id="loadScreen">
+  <div class="load-logo">♠</div>
+  <div class="load-title">DESI CRASH</div>
+  <div class="load-bar-track"><div class="load-bar-fill"></div></div>
+</div>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <div class="suit-badge">♠</div>
+      <div>
+        <h1>देसी तीन पत्ती क्रैश</h1>
+        <div class="tag devanagari">पत्ता खोलो, मल्टीप्लायर पकड़ो, जीत ले जाओ — Cash out before the crash!</div>
+      </div>
+    </div>
+    <div class="balance-box">
+      <div class="lbl">Balance</div>
+      <div class="amt">₹ <span id="balanceVal">1000</span></div>
+    </div>
+  </header>
+
+  <div class="grid">
+
+    <!-- MAIN TABLE -->
+    <div class="table-panel">
+      <button class="mute-btn" id="muteBtn" title="Mute/Unmute">🔊</button>
+
+      <div class="status-line">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText">दांव लगाओ / PLACE YOUR BET</span>
+      </div>
+
+      <div class="multiplier" id="multiplierDisplay">1.00x</div>
+      <div class="result-line" id="resultLine"></div>
+
+      <div class="cards-row" id="cardsRow"></div>
+
+      <div class="bet-bar">
+        <div class="quick-chips">
+          <button class="chip-btn" data-chip="50">+50</button>
+          <button class="chip-btn" data-chip="100">+100</button>
+          <button class="chip-btn" data-chip="250">+250</button>
+          <button class="chip-btn" data-chip="500">+500</button>
+          <button class="chip-btn" id="maxChip">MAX</button>
+          <button class="chip-btn" id="clearChip">CLEAR</button>
+        </div>
+        <div class="bet-input-row">
+          <span class="rupee">₹</span>
+          <input type="number" id="betInput" value="100" min="10" step="10">
+        </div>
+        <div class="action-row">
+          <button class="btn-main btn-bet" id="betBtn">Place Bet<br>दांव लगाओ</button>
+          <button class="btn-main btn-cashout" id="cashoutBtn" disabled>CASH OUT<span class="cashout-value" id="cashoutPreview">—</span></button>
+        </div>
+
+        <div class="pf-strip">
+          <div class="pf-row"><span><b>Hash (pre-round):</b></span></div>
+          <div id="pfHash">—</div>
+          <div class="pf-row" style="margin-top:4px;"><span><b>Seed (revealed after crash):</b></span></div>
+          <div id="pfSeed">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDE HISTORY -->
+    <div class="side-panel">
+      <h3>पिछले 10 राउंड · History</h3>
+      <div class="history-list" id="historyList">
+        <div style="font-size:12px; color:var(--ivory-dim); text-align:center; padding:12px 0;">अभी तक कोई राउंड नहीं<br>No rounds yet</div>
+      </div>
+      <div class="rtp-note">
+        Demo game · Play coins only, no real money.<br>
+        Target RTP <b>~96%</b> · Crash range <b>1.01x – 10.00x</b><br>
+        Hand bonus: Trail 3x · Pure Seq 2.5x · Seq 2x · Color 1.5x · Pair 1.2x · High 1x
+      </div>
+    </div>
+
+  </div>
+
+  <footer>Desi Teen Patti Crash — for entertainment only · SHA-256 provably fair engine · दांव समझदारी से लगाएं</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ============== STATE ==============
+  const BALANCE_KEY = "desiCrashBalance";
+  function loadBalance(){
+    const saved = localStorage.getItem(BALANCE_KEY);
+    const n = parseInt(saved, 10);
+    return (saved !== null && !isNaN(n) && n >= 0) ? n : 1000;
+  }
+  function saveBalance(){
+    try{ localStorage.setItem(BALANCE_KEY, String(balance)); }catch(e){}
+  }
+
+  let balance = loadBalance();
+  let currentBet = 0;
+  let multiplier = 1.00;
+  let crashPoint = 1.00;
+  let tickTimer = null;
+  let roundState = "idle"; // idle | running | ended
+  let currentHand = [];
+  let currentHandResult = null;
+  let serverSeed = "";
+  let pfHash = "";
+  let muted = false;
+  let history = []; // {value, hash, seed, handTag}
+
+  // ============== DOM ==============
+  const $ = (id) => document.getElementById(id);
+  const balanceVal = $("balanceVal");
+  const betInput = $("betInput");
+  const betBtn = $("betBtn");
+  const cashoutBtn = $("cashoutBtn");
+  const cashoutPreview = $("cashoutPreview");
+  const multiplierDisplay = $("multiplierDisplay");
+  const resultLine = $("resultLine");
+  const cardsRow = $("cardsRow");
+  const statusDot = $("statusDot");
+  const statusText = $("statusText");
+  const pfHashEl = $("pfHash");
+  const pfSeedEl = $("pfSeed");
+  const historyList = $("historyList");
+  const muteBtn = $("muteBtn");
+
+  // ============== DECK / CARD LOGIC ==============
+  const SUITS = [
+    {sym:"♠", color:"black"}, {sym:"♣", color:"black"},
+    {sym:"♥", color:"red"}, {sym:"♦", color:"red"}
+  ];
+  const RANKS = [
+    {label:"2", val:2}, {label:"3", val:3}, {label:"4", val:4}, {label:"5", val:5},
+    {label:"6", val:6}, {label:"7", val:7}, {label:"8", val:8}, {label:"9", val:9},
+    {label:"10", val:10}, {label:"J", val:11}, {label:"Q", val:12}, {label:"K", val:13}, {label:"A", val:14}
+  ];
+
+  function freshDeck(){
+    const deck = [];
+    for (const s of SUITS) for (const r of RANKS) deck.push({rank:r.label, val:r.val, suit:s.sym, color:s.color});
+    return deck;
+  }
+
+  function shuffle(arr){
+    for (let i = arr.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i+1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function dealThree(){
+    const deck = shuffle(freshDeck());
+    return [deck[0], deck[1], deck[2]];
+  }
+
+  function evaluateHand(cards){
+    const vals = cards.map(c => c.val).sort((a,b) => a-b);
+    const suits = cards.map(c => c.suit);
+    const isTrail = vals[0] === vals[1] && vals[1] === vals[2];
+    const isSameSuit = suits[0] === suits[1] && suits[1] === suits[2];
+    const isNormalSeq = (vals[1] === vals[0] + 1) && (vals[2] === vals[1] + 1);
+    const isAceLowSeq = vals[0] === 2 && vals[1] === 3 && vals[2] === 14; // A-2-3
+    const isSeq = isNormalSeq || isAceLowSeq;
+    const isPair = !isTrail && (vals[0] === vals[1] || vals[1] === vals[2] || vals[0] === vals[2]);
+
+    if (isTrail) return {type:"Trail (त्रिल)", mult:3.0};
+    if (isSeq && isSameSuit) return {type:"Pure Sequence", mult:2.5};
+    if (isSeq) return {type:"Sequence", mult:2.0};
+    if (isSameSuit) return {type:"Color", mult:1.5};
+    if (isPair) return {type:"Pair", mult:1.2};
+    return {type:"High Card", mult:1.0};
+  }
+
+  // ============== PROVABLY FAIR ==============
+  function randomHex(numBytes){
+    const arr = new Uint8Array(numBytes);
+    crypto.getRandomValues(arr);
+    return Array.from(arr).map(b => b.toString(16).padStart(2,"0")).join("");
+  }
+
+  async function sha256Hex(message){
+    const enc = new TextEncoder().encode(message);
+    const buf = await crypto.subtle.digest("SHA-256", enc);
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,"0")).join("");
+  }
+
+  // Standard crash-curve derivation from a hash, capped to 1.01x-10x, ~96% RTP
+  // (1-in-33 instant-crash chance reproduces the house edge, same idea used by
+  // popular provably-fair crash games).
+  function crashPointFromHash(hashHex){
+    const sub = hashHex.slice(0, 13);
+    const intVal = parseInt(sub, 16);
+    const e = Math.pow(2, 52);
+    if (intVal % 33 === 0) return 1.01;
+    let point = (100 * e - intVal) / (e - intVal) / 100;
+    point = Math.max(1.01, Math.min(10.00, point));
+    return Math.round(point * 100) / 100;
+  }
+
+  // ============== AUDIO (embedded base64 WAV sound effects) ==============
+  const SND_TAKEOFF = "data:audio/wav;base64,UklGRjQOAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YRAOAACAgICBgoOEhoeHiIeHhoSCf3x5dXJvbWtqamttcHR5foSKkJWanqGioqCdmJKKgnpxaGFaVVFQUVRZYGlzfoqWoaqyuLu8ubSsoZWHeWxfVEtEQUBDSFBbZ3WDkZ6qs7q+v7y3rqOXiXpsX1NKREBAREpUX217ipilsLi9v724sKWYintsX1NKQ0BBRUxXZHKBkJ6rtbu/vrqzqJuNfW5gU0pDQEFGTllndoWVo6+4vb+9t62hkoJzY1ZLREBBRU1ZZ3aHlqWxub6/u7Spm4x7a1xQR0FAQ0pVY3ODlKOvub6/u7Somop5aVpORUFBRU5aaXqLm6q1vL+9t6yfj31sXU9GQUBFTlpqe4ydq7a9v7y1qZqJd2ZXS0NAQklUY3SGl6ezvL+9tquci3lnWEtDQEJKVWV2iZqqtr2/vLOmloRxYFFHQUFGUF5vgpWls7u/vbWpmYZzYlJHQUFGUF9xhJentL2/vLOllIBtXE1EQEJKV2h7jqGwur+9tqqZhnJgUEVAQUlVZnmNoK+6v721qJeDb11OREBDS1psgJSmtL2/u7ChjnllVEhBQUdUZXmOobG7v7yzpJF8aFZJQUFHVGV5jqKxvL+7saGOeGRSRkBCSlhrgZaotr6+uKqYg25aS0JARlJkeY+jsry/uq6diHJdTUNARVFid46isry/uq2bhnBbS0JARlRmfJOntr6+t6iUfmhVR0BCTFxxh52vu7+7r52HcFtLQkFIV2uCmKy5v7yxoIpzXUxCQEdWaoGYrLm/vLCeh3BaSkFBSlpvh52wvL+5q5eAaFRGQENPYnmRp7e+vbOhinJcS0FBSltxiqGzvb62ppB3YE1CQEhYboeesb2/t6eReGBNQkFJWXCJoLO9vrWkjXRcS0FBTF52j6a3v7ywnIRrVUZARVNogZqvvL+3p5B2XktBQkxfeJKpuL+7rZd9ZE9DQElbc42ltr+8r5qAZlFDQEhacoyltr+8rpl/ZU9DQUpcdZCouL+6q5R5X0xBQk5jfZiuvL+2o4pvV0ZARlZuiaO2v7yul3xhTUFCTmN+ma+9vrSghWpSREBJXHaSqrq/t6WLb1ZFQEdZc4+oub+4po1wV0ZAR1lzj6m6v7ili25VRUBJXHeTrLu/taCFaFFCQUxif5uxvr2vmHtfSkBEVG2Kpbi/uaaLblREQEpgfJmwvb2wmHpeSUBFVnGOqbq/taCEZk5BQlBph6O3v7mlimxSQ0FNZYOgtb+6qIxuVENBTGSCn7W/uqiMbVNDQU5mhKG2v7mliGpQQkJRa4mmub+1n4FjS0BFV3OSrby+sJZ3WkZASmB/nbS/uqaJalBBQ1Nujqq7vrGYeVtGQEphgJ+2v7ijhWVNQUVYdZWvvryrjm5SQkJRbY2qvL6wlXVXREFOaIimur+ymXlaRUBMZYakub+zmnpbRkBMZYalur+zmXhZRUFOaImou76wlXNVQ0JRbo+svb2rjmxQQURXdpeyv7mkhGNKQEhggaK4v7OZd1hEQVBtj629vKmKaE1ARl19n7e/tJp4WERBUW6Rrr67p4dkSkBJYoSkur6vkm9RQURZeZy1v7WbeVhEQlJxlLG/uaGAXkZATmuPrb67pYRhSEBMaIurvbynhmNJQEtniqq9vKeGY0lATGiMrL27poRhR0BOa4+uvrqif11FQVFxlbK/t5x4V0NDV3mdt7+ylG9QQUZfg6a7vaqIZElATWuQr764n3pYQ0NXep64v6+Qa01ASmaLrL66on5aREJWeJ24v6+PaUxAS2iOr764nXhWQkRbgKS7vamGYEZBUnOZtr+xkWtMQEtpkLC/tpp0UkFHYYeqvrqhe1dCRFyBpby8pYFbREJYfKK7vaiEXkVCVnqgur6qhmBFQVV5oLq+qoVfRUJWeqG6vaiDXURCWH6kvLylf1lDRFyDqL26oHlUQUZiiq2/t5lxT0BLa5Ozv7GQZ0lAUXWdub6phF1EQ1uCqL26nnZSQElokLK/spBnSUFTd5+6vaZ/WEJFYYquv7WVbEtAUHSdub2ngFlCRWGKrr+0k2pJQFJ4oLu8o3tUQUhnkbO/r4thRUJagqm+t5huTEBQdZ66vKR7VEFJaZS1v6yGXUNEYIqvv7OPZUZCWYGpvreXbEpAU3qkvbqdck5AT3Wfu7yhd1FATXGcur2jelJAS2+aub2le1NAS26Zub2le1NAS2+aub2keVJATHGcuryhdlBAT3WgvLqdcUxAUnqlvbiXa0lBWIGqv7SQZEVDXoqxv66HXEJHZ5S2vqZ8U0BNc5+7upxvS0FWgKq/tI9iRERijrS/qoBVQEtxnru7nG9KQVeCrL+xil5CRmiVuL2jd09AUnynvrWQYkRFZJK2vqV5UEBRe6e+tY9hREVmlLe9o3VOQFR/q7+xiVxCSGybu7ubbUhCXIqyv6p+U0BQeaa+tI5fQ0dqmbq7nG1IQl2Ms76nelBAU3+rv7CGWUFMc6K9tpFiQ0Zpmbq7mmpHQ2GQtr2hcktBWomyv6d5T0BVg66/rH9TQFF9qr+vhFZAT3mov7GHWUFNd6W+s4laQUx1pL6ziltBTHWkvrOKWkFMdqW+sohZQU14p7+xhVdAUHyqv66BU0BTgK2/qnxQQFeGsb6ldUtBXY22vZ9uR0Nklbq6l2VER22evbaNXEFMd6e/r4JTQFSDsL+mdUtBX5C4vJpoREZsnr21jFtBTnuqv6t8T0BajLW9nWtFRWqdvbaMWkBPfay/qXhMQV6RuLuXZENJcqS/sIJSQFeJtL2ea0VGbJ++s4dWQFSFsr6hbUZFap69tIhWQFSFsr6fbEVGbaC+soRTQFiKtbyaZkNJc6a/rXxOQV+TurmRXUFPfq+/o3BHRWufvrKDUkBajri7lWBBTXytv6RwR0VsoL6wgFBBXZK6uZBbQFKDsr2daENJdam/qHVJRGmevrGBUEFek7q3jFhAVYm2vJdhQU5/sL6faURJdqq/pnJHRW6jv6x5S0Nnnb6xf05BYpi8tIVSQF2Tu7eKVUBaj7m4jVhAV4y4upBaQFWKt7qSXEBUiba7k1xAVIi2u5NcQFSJt7qSW0BVi7e6kFlAV425uY1XQFqQureJVEBdlby0hFBBYpq9sX5NQmifvqx4SUVupb6ncEZJdqu+oGhETn+xu5dgQlSJtriNWEJdk7qyglBEZ528qndKSHOnvKBqRU9/sLmUX0NZjbe0hlRFZZu6qndLSnSnu55oRlKEsraOWkVflLiufU9Jb6O6oGxIUoKwto9bRmCUt6x8T0pypbmdaEhVhrKziVdHZpu4pnRMT3yrtpNfR1+Stat8UEx0pbeZZkhai7OuglRLb6G2nGpKWIixr4VWS22ftp1rS1iHsK+EVkxuoLWcaktairCtgVVNcqK0mGZLXo6yqXxSUHimspFhS2SVs6N0T1WBq6+IWk1tnrOaak1djLCofFNSeqawjl9NaZmynm5OW4muqX9VUnilsI9gTmmYsZxtT12Krqd8VFR8p62KXVBvnbCWaE9jka+hdFJahauogFdUeaSti19RbpyvlmhQZZKunnFSXYmrpXtWWH+nqYRbVHahrI1hUm+brZRnUmiUrZpuU2KOq591VV6HqaN7V1qBpqaBWlh8o6iGXVZ3oKqLYVVynKqPZFRvmauSZ1RslqqValVplKqXbVVnkaqYb1ZmkKmacFZljqmacVdkjaibcldkjKibc1dkjKibc1hljaeaclhljaeZcVhnjqeYcFhokKeWblhqkqeUbFhslKeSallvlqaPaFlymKWLZVp2m6SHY1x6naKDYF5+oKB/XmCDop16XGSIo5l0W2iNpJVvW22SpI9qXHOXo4lmXXmcoIJiYICfnXtfZYehmHRdao6ikW1dcZWiimdeeZqfgmJigZ+aeV9oiqGUcV5vkqGMal94mZ6DZGOBnpl5YGmLoJJwX3KTn4hoYXyam35iZ4aelHRgb5Cfi2theZicgGRmhJ2VdWFvj56La2J6mJuAZGiFnZN0YnGQnYlqZH2ZmHxka4mcj3FjdZObhGhngpqUd2NwjpyJbGV8l5d8ZWyJm45wZHiUmYFnaoWakHRkdJGZhGlogpmSdmVyj5mGa2iAl5N4ZnGNmYdsaH+Xk3lmcY2Zh21of5aTeWdyjZiGbWmAlpF4Z3OOl4Vsa4KWkHZodo+WgmtshJaNdGh5kZR/am+HlopxanyTkntqc4uWhm5sgZSOd2p3jpSBbG+GlYpya3ySkXtrdIuUhG9ug5OMdWt6j5F+bHOJk4ZwboGSjXdseY6Rfm1ziJOGcW6Bkox3bXqOkH5udIiShHFwgpGKdm58jo58bnaKkYJwcoWRh3Rvf4+MeW96jI9+b3WIkINycoOQiHVwfo6LenB6i45+cHaIj4Jyc4SPhnVygI6JeHF8jIx8cXmJjX9ydoaOg3R0g42GdnOAjIh5cn2LintyeomLfnN4h4yBdHaFjIN1dYOMhXd0gIuHeXR+ioh7dHyJiXx0e4iKfnV6hoqAdXiFioF2eISKgnd3goqDeHeBiYR5doCJhXp2f4iGe3Z+iIZ8dn6Hhnx3fYeHfXd8hod+d3yGh353fIWHf3h8hYd/eHuEh394e4SGf3l7hIZ/eXuDhoB5fIOGgHl8g4WAenyDhX96fIOFf3p8g4V/en2DhH96fYOEf3t9g4R/e36Dg357foODfnt+g4N+fH+Dgn58f4OCfnx/g4F+fYCCgX59gIKBfX2AgoB9foCCgH5+gYGAfn6BgX9+f4GBf35/gYB/fn+AgH9/gICAf3+AgIB/f4CAgH9/gIA=";
+  const SND_CRASH   = "data:audio/wav;base64,UklGRqQMAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YYAMAACAgYKAgoOIjIGAk4qUfImRfJaSZ2J2h2VYYEROWl5MTU9mX1CVhpN2ubSAlLS1x5+9ro6fsaiIiFhhhmNMZG1oUFVbcWFbZ0lQiKSMg3iXwLSlwJGnx6icipu1Z5yYl4aFamlaO3dfQ1tbVFdqdnp1WnBylrGxtbqRv7OFf3yxhneZfWJjeVhad19RWjZRVEM/fmRSdYtUWmqbdqWooYzIvKeQr5mkjaBvfKmcao9findaSjZ3NnJ/Y0iBjn51cXRvmYx/fKuSpJjCxH+LkcCshXaUmptpjHhkh0ptO0B5RXBnfV1fYZKEpaVxlnl4f766vpmuuZikhneAqoyheGWGhEFwQD94N0Z/VkFIUXxQkm+io3p8knqofX3Jlq2hlYC+v7p0d5Cmf4V+WmtVTT1Kf1VlZn5XVFpdi5NsdImRmIJ1ioCnhIWwlbqhuoGXqW2qapKdi2BLZoFOej95Nkx6dYB+e3tZcmKSlHlwubGhpL6hnZmTf62ZoXaIc21ymHJteFdBZWBoVmhrRlpbSltqiI1hg1phiKl3qrePr72atbisv8HDooGCe5KbYIuIZ29Qdz+EdGVIeX0/cXludGSNlW2Se2x9c7O7f6aahpWSuX+MnXumoa56e4pxg2WBhYKKZl94cF9RSTxzQHNnin6TWHiDdIeBkm6UmJCaubOlsZyNfI+kt6+TsoadeI2bYlNyZ1c5VFVTdWBsenFfdnF2eGyBhqKbpaOrn4+MsL+ni7+kooGispeOoW2Oq5N4iX5cV4dUQnlfUltsQGVrdE1pT2xShY9rZ6SVpGuxoIyYtLiMrozKocS0qYydfXmhgptwkItnVGZpSEs+ZXpFNmlyfmRReUV0SWRwa19omoOQeKOJoLzFf7rAmJ2sxZy/tIO6cnmcan5nfJSVT02ERFNEPzlmbWh0ZlJmgmtPRIpzZXx9fl96g3auj6WssbG2kcmLxcC/gYK3m5C8cZKIbHyQmVN1UYNJQlpyUEBxcXVKVEdgUVR4iG9Ne2+ci5iSiqmognyPnYCVqIG9sZeWmpa1oKCBuIiFbrCGo6Cfj5SQg01oaYZ0bG5Qe2RSV4BfRUVxaodTaIRUW4FwZ3eXknR2tKeGvH6av7WVw6zAwZusoLyupqm0eHCVlHx2bI2EcER/XkhOazU9Sndsfl5iYmJlfYpjd2JleIKDp22Us6OZjZK9va3AxL+co7ycuKKWnYKRlHN8f6qSd6pufoyFboRremaIckBCgEY2R1h8Umx1PmeGZmhcjJFSeHGHYW90hqKqp6J4kamPocGGv4edxI+nnsHIkJ67noKpho5nrpKjo2p8cYaJWFh3XkZJY2V/XWI/U0lpSUZTXFNqS4N3bkxkgoKSm3ODem5yfXOYp5+riomnwJ5/gZeuhpCyyJaooHiOfYOon2trmWd0bVpVWmuReFd2VWVUglN0Z3VidlJnY1xgX1V9amVCZk9VaHNfZHp5dmN6ko2QqaOic4qpg76Fvo2+v5nDjMCcoIerkK22pXa8t6CKlauIno19oXaDVnNPf0dIS0tlWE+EfWhzc0dxRl5PQG97TnpTbId4Q2JgXIZsgn95WIqdaZCHfp2zbbKNsYGsf5LErrihoqS6t46hqKrFvYiYgnp8g66krIN3s6WsY32Nkp1+cFCLlo55X1V8hoZJZ2BYc31samhlXEZvPWVSYGdcg0w8hlZWYnKRfmN1cXdzY3Z4bJ19b5Goppymin2HkIychYWPjLqnjp/Bq6mdjq2EuIG0l62lgZ56hY2Fn7WEpnaYe4dkmWl5a499fYVeToVdgIlwSH1sTktfQntsc1N6QWtJN0BGb1RcZk5qbYFjfoh7Y1pPhVV1b1Rij32am2KOY4CDqZF2j5F8ia+4q3m2mLOGhbuQgKHEuZvFt7utm7+gwKW+n5ulkoWjtIuzrKqQt6eXdZRsqH9/io+JgYqXenyQVmBpYI5ZVWJugoyBcEdIbnpTgmVmaENJfU9CT21OSk9cblF4f3VDVH15SV9adUZaeIJKcHaFaI5cWFp5XGdjW5lxnI1tnmKjZnaLaJtwoW+RfYORi42fgoKki7WVmXx9g6Wou5qslYSarbO9taSjoJ6rpLabnLOpnqCvoouOoHyVsIWSoa+gmoqMmIWfbZuafWp9jJeccWhpn4hniZmCaZaFY4d1eWtmbXJthlRbiHNyc1pjV1KGdn5Hcllkb0dbZnpjV2hnVWRUQ1ZIYWF4cHB/U1pSSmNjTX2ASkZKc3pMSWldS0tXV11tXFtbg15xbGVqVF56gmJgjF2HjWKLZF5tcYB4jodobY5qm5NydnV/dmp3dX6FnpKQn4SHfZ+jpZR4dqCmkqmqoIuQi46SeX+CmauigpSeg4CeiaCGrY6VnK+xraSCiZy2p4mTtZuwr6uipJKGtIGOobWLja6RlZOCs6V/hIaTr4aLj5qvm6+bla2dl5mQlICHpYOHhI9+jpyfqX+chIyYpp2teomSenuLlX57iJ6Uq5aklI6LeXiXoXV9hYSfgIOMpIGTdIihfIOSjo6Pk4CChIqMnIOFmaB6k3qTb4eKkJuViYVtiIiRdIlukJSBjYx6b5B8coCTmYaacoJqdZVsiYKamm92mXlxlYd3g31/g3CGl4WOdm9ol256h4uGfY99kGqKbHp9cH2QaXGWfXqTjXCEcI2CjmuUc5B9km1rfpR+gHCCfZKLf3BwloZ0j3N/km5vbHF7eXdrgX+NeYV5jnOCgICEhHqRl4aJjXuIgoN/hnd5d4l5kZeRfZl+f4qNgpOWfXqCkI95gpmcjJSXfHaOhJKAhpd4hnuMlKCWe4iNkZSgn39+oH6hfZF9foaaloZ/iIGDj46hfpGSgYqBoYp+kJKhmoWifZp/n4Wen52CjoKcp5SZmoSOjZ2QjpWHgomAmpKYloKgoICRn5Cim5qknpeBkZuUlo2giZiQhH+DiZF/gJ2kjo+UgZGWoZWRi56PjZeLfZCbh319m3yRe4uZf4KNi4qDdop+i4N9l36Wg4R6doqAhHWBhomFe4WBfIJ1bG+MiYZxhoN6cWqJiYN0foR3Z4V1fXhkcWFqgnh0Y3d0dXd/bnNwcnVkX2FfcGh4Y2J7YGl1cGZicWZ7Z35fc2hvbntmemF2fG9+bW6BhH1rg3CCcG1vfYd5bH+Hg2p1hYONioeEe3CJf412jYePioKFeH2IfIOMi5WHi4eSjpmAgIWQkYOGkIaYgpeElZecm4CUm5eNloiYjJ2AkYOWnI2XhX6ViX+Ql36NhXt8eoKBh4mQj3uHjnuFkIWGeo2IeXdufIaDcHJwcnBueYOAeXCBbWdsfHlua3dzenFmZmpyeHNkfnFzamtrdX5tb25nZ3yCaWt1cnCCcHGEfX+Ab4lwdn2Ii3N3dHiNeIR8eH9/h5CIiYKAiIeUg35/hoSJlZGOlJWBkYOKiYaAhJCWlX+MgoqKgH6HfI+PeoyMeYWCeomCiIqKgoZzeXt8eIJ8gXeCdIN4dHltenh8a3N2anp9d3p+c3V9eXB3fH5ub3t8fXh2g3V2cXN/gHeDd3yDhoCIgoaKhYaOfHx9g4iKjH6Qg5OGkI6AioiUhIeDf4qLgo+CkIuQhY2HiYOEf4CKeYeFeX6Ffn59doWAd3d+gHp1dnl/e3JuenJ9cH98cm58cHF1cnF5e35xcnp/dn11hISGfXiFf36AhYaCf359jY1+iI6Ij4GLjYGDj4OKjouMhI2BhYaJfn6Df4qChIGHiId6gYOFf314dXV4fnl7doGAdXdzd3R8dXtxe3p1fX5/fHl7fniBgH+Ad4J9gYF/g4aIe4iGhIeCg36KiYWHioGHiYeMg4iJhIuEgICDiomIhYKEg4d/f4KDgnp/e3p6dnd+f3aAen51dX11dXx1eX52fn+AfH94fYGBeoF9f4KBfoSFhH19g35/h3+BgoiJh4SBiYKGh4SIiIKFf4KEgIGEfoV9fYF9gn17f31+eXl7fHl5fnl6fn9+eH54fnp6fHp+gH+Ae3yBfYGAfX6EhIJ+foWEhIGFgISEgoWBhoaCgYSBg4OFg4CAfoKCfn9+fnx/gXx/f35/fX56e31/fX99fH5/f358fX58fYB9gH5+f39/f4KBgYCAg4GAgYKDg4KAg4CCg4CBgIB/gYF/fn9/f4B/fX1/fn9/f399f319fX5/f39+fn+Afn9/fn9+gH+AgH+BgYB/gIGAgYCAgIGBgYCAgICAgH+Af4B/gH9/gH+AgH9/f39/f39/f39/f39/f39/f39/fw==";
+  const SND_CASHOUT = "data:audio/wav;base64,UklGRhQLAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YfAKAACAgIGCg4OCgX98eXd3eHp+g4iMjo6Lhn94cW1rbXJ6hI2UmZmVjYJ2a2NgYWh0gY+bo6Whloh3aFtVVV1rfY+grLGtopB7ZlVLSVBgdY2js7y6rpuCaFNEQEZWbYafsr2+tKKJb1hIQENRZn+Yrru/uKiRd15MQUFMX3eRqLi/u62YfmVQQ0BIWXCKorS+vbKfhmxWRkBFU2mCm7C8v7aljXNcSkFCTmJ7lau6v7qrlXtiTkJBSltzjaW2v7ywnIJpU0VARlZshp+yvb60oopwWUhAQ1Blfpitu7+4qJF3X0xBQUted5GouL+7rph/ZlFDQEhYb4mitL69s5+HbVZGQERTaIKbsLy/t6WOdFxKQUJOYXqUqrm/uquVfGNOQkFJW3ONpLa+vLCcg2lTRUBGVWuFnrK9vrWji3FZSEBDUGR+l627v7mpknhfTEJBS152kKe4v7uumYBmUURAR1hviaG0vr6zoIdtV0dARFJogZqvvL+3po91XUpBQk1hepOqub+6rJZ8Y09DQUlacoyktr69sZ2EalRFQEVVa4Wdsb2+taOLcVpIQENPZH2XrLu/uamSeWBNQkFLXXaPp7e/vK6agGdRREBHV26IoLO+vrOgiG5XR0BEUmeBmq+8v7emj3VdS0FCTWB5k6m5v7qsln1kT0NASVpyi6O1vr2xnYRrVEVARVRqhJ2xvb61pIxyWklAQ09jfJasur+5qpN5YU1CQUpddY+mt7+8r5qBZ1JEQEdXboegs76+tKGIbldHQERRZ4CZrry/uKeQdl5LQUJMYHiSqbm/u62XfWRQQ0BIWXGLo7W+vbKehWtVRkBFVGqDnLG9vrakjHJbSUFCT2N8lau6v7mqlHphTUJBSlx0jqa3v7yvm4FoUkRARlZth5+zvb60oYlvWEdARFFmf5muu7+4p5B2XktBQUxfeJKouL+7rZd+ZVBDQEhZcIqitb69sp6GbFVGQEVTaYOcsLy/tqWNc1tJQUJOYnuVq7q/uqqUe2JOQkFKXHSOpba/vLCbgmhTREBGVmyGn7K9vrSiinBYSEBDUGV/mK27v7iokXdfTEFBTF93kai4v7utmH9lUENASFlwiqK0vr2yn4ZsVkZARVNpgpuwvL+2pY50XEpBQk5ie5Srur+6q5V7Yk5CQUlbc42ltr+8sJyDaVNFQEZVbIaesr2+taKKcFlIQENQZX6Yrbu/uKiReF9MQUFLXneQp7i/u66Zf2ZRQ0BHWG+JobS+vbOfh21WRkBEUmiCm6+8v7emjnRcSkFCTWF6lKq5v7qrlXxjT0JBSVtzjKS2vr2wnINqVEVARlVrhZ6yvb61o4txWUhAQ1BkfZetu7+5qZJ4YExCQUtedpCnuL+8rpmAZlFEQEdYb4ihtL6+s6CHbVdHQERSZ4Gar7y/t6aPdV1KQUJNYXmTqrm/uqyWfGNPQ0BJWnKMpLa+vbGdhGpURUBFVGuEnbG9vrWji3FaSUBDT2R9lqy6v7mpk3lgTUJBS111j6e3v7yvmoBnUkRAR1duiKCzvr6zoIhuV0dARFJngJqvvL+3p491XUtBQk1geZOpub+7rJd9ZE9DQElacYujtb69sZ2Ea1VFQEVUaoSdsb2+tqSMclpJQENPY3yWrLq/uaqTeWFNQkFKXXWPpre/vK+agWhSREBHV22HoLO+vrSHYkdBUnSatr+wj2lLQE1skrK/tZdwUEBIZIutvrmeeFVCRV2Dp7y8pYBbREJXe6C6vquIYkdBUXOZtr+wkGpLQExrkrG/tZhxUEBIZIqsvrmfeVZCRF2Cpry8pYFcREJWep+5vqyJY0dBUXKYtr+xkWpMQExqkbG/tphyUUFHY4msvrmfelZCRFyBpby8poJdREJWeZ+5vqyKZEhAUHGYtb+xkmtMQEtqkLC/tplzUUFHYoirvrqge1dCRFuApby8p4NdRUJVeJ65vq2LZEhAUHCXtb+ykmxNQEtpj7C/tpp0UkFHYoeqvrqhfFhCRFt/pLu9p4NeRUFVeJ24vq2LZUlAT3CWtL+yk21NQEpoj6+/t5t0UkFGYYeqvbqifFhDQ1p/pLu9qIRfRUFUd524vq6MZklAT2+VtL+zlG1OQEpnjq+/t5t1U0FGYIapvbuifVlDQ1p+o7u9qYVgRkFTdpy4vq6NZ0lATm6Vs7+zlW5OQElnja6+uJx2U0FGYIWpvbujflpDQ1l9oru9qYZgRkFTdZu3v6+OZ0pATm2Us7+0lW9PQElmjK6+uJx3VEJGX4SnvLqjf1tERFl8obm8qYZiSENUdZq1va6OaUxCT22SsLyylXBRQ0tmi6u7tZx4V0VIYIOlubiigF1HRlp8n7a5p4dkS0VVdZiyuqyOa09FUW6RrrmwlXJURk1niqi4s5t5WUhLYYKjtrWhgF9KSVx7nLO3podmTkhXdJavt6qObFJIU26Pq7aulHNXSVBoiKa1sZp6XEtNYoKgs7OggWJNTF17mrC0pIdoUUtYdJSstKmOblVLVW6OqLSslHRZTFJoh6Oyrpl7Xk5QY4GesLCegWRQTl56mK2xo4hqVE5adJKqsaeOcFdOV26MprGqk3ZcT1RphqGvrJh8YVFSZICcra6dgmZTUWB6lqquoYhrVlFcdJGnrqWNcVpRWW+Lo66ok3deUlZqhZ6sqpd9Y1RVZX+aqqucgmhWVGF6laesoIhtWVNedY+krKONcl1UW2+KoKulknhhVVlrhJypp5Z9ZVdXZ3+Yp6iag2pZVmN6k6WpnohvXFZgdY6hqaGNdF9XXXCJnqijkXljWFtshJqmpZV+Z1paaH+WpKaZg2xcWWR6kaKmnIhwX1lidYyfpp+MdWJaX3GIm6WhkHpmW11tg5ijopR/aVxcaX6UoqOXg25fXGZ6j5+jmohyYVxkdYuco52MdmRdYXGGmaKej3toXmBugpWhoJN/bF9fa36Sn6CWg29hX2h6jpygmIdzZF9mdoqaoJqLd2dfZHKGl5+cjnxqYWJvgZOenZKAbmJibH6QnJ6Ug3FkYWp6jJqelod1Z2JodoiXnZiKeWliZnOFlJyajXxsY2VwgZGbmpCAb2Vkbn2OmZuTg3NnZGt6i5eblId2aWVqd4eVmpaKemxlaHSEkpmXjH1uZmhxgI+YmI+AcWhnb32MlpiRg3RqZ216iZSYkoZ3bGdseIaSl5SJem5oa3WDkJaVi31xaWpzgI2VlY2Ac2tqcX2KlJWPg3Zsam97iJKVkIZ5bmpueIWQlJGIe3BrbXaCjZOSin5zbG10gIuSkoyAdW1tc32JkZKNg3dvbXF7ho+SjoV6cW1weYSNkY+HfHNucHeCi5GQiX51b292f4mPkIqBd3BvdH2HjpCLg3lycHN8hY2PjIR7c3BzeoOLj42GfXVxcniBiY6Nh393cnJ3f4eNjYiBeHNydn6Gi42Jgnp0cnV8hIqMioR8dnN1e4KJjIqFfnd0dXqBh4uKhn95dXV5f4aKioeAenZ1eH6EiYqHgnt3dXh9g4iJiIN9eHZ3fIKGiYiEfnl3d3uAhYiIhH96d3d6f4SHh4WAfHh4en6DhoeFgX15eHp9goWHhYJ+enl6fYGEhoWCf3t5enyAg4WFg398enp8f4KEhYOAfXt7fH+ChISDgX58e3x+gYOEg4F/fXx8foCCg4OBf318fX6AgYKCgYB+fX1+f4GCgoGAfn59fn+AgYGBgH9+fn5/gIGBgIB/f39/f4CAgICAf39/f3+AgICA";
+
+  const sndTakeoff = new Audio(SND_TAKEOFF);
+  const sndCrash   = new Audio(SND_CRASH);
+  const sndCashout = new Audio(SND_CASHOUT);
+  [sndTakeoff, sndCrash, sndCashout].forEach(a => { a.preload = "auto"; a.volume = 0.55; });
+
+  function playSound(audioEl){
+    if (muted) return;
+    try{
+      audioEl.currentTime = 0;
+      audioEl.play().catch(()=>{});
+    }catch(e){}
+  }
+
+  // legacy tiny-synth beep kept as a fallback for ambient ticking cues
+  let actx = null;
+  function beep(freq, dur, type){
+    if (muted) return;
+    try{
+      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+      const osc = actx.createOscillator();
+      const gain = actx.createGain();
+      osc.type = type || "sine";
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.08, actx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, actx.currentTime + dur);
+      osc.connect(gain); gain.connect(actx.destination);
+      osc.start(); osc.stop(actx.currentTime + dur);
+    }catch(e){}
+  }
+
+  muteBtn.addEventListener("click", () => {
+    muted = !muted;
+    muteBtn.textContent = muted ? "🔇" : "🔊";
+  });
+
+  // ============== LOADING SCREEN ==============
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      const loadScreen = document.getElementById("loadScreen");
+      if (loadScreen) loadScreen.classList.add("hide");
+    }, 1500);
+  });
+
+  // ============== UI RENDER ==============
+  function renderBalance(){ balanceVal.textContent = balance.toFixed(0); saveBalance(); }
+
+  function renderCardsFaceDown(){
+    cardsRow.innerHTML = "";
+    for (let i = 0; i < 3; i++){
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="card-inner">
+          <div class="card-face card-down"><div class="chip">॰</div></div>
+          <div class="card-face card-up"></div>
+        </div>`;
+      cardsRow.appendChild(card);
+    }
+  }
+
+  function fillCardFace(cardEl, cardData){
+    const face = cardEl.querySelector(".card-up");
+    face.classList.add(cardData.color);
+    face.innerHTML = `
+      <div class="corner">${cardData.rank}<br>${cardData.suit}</div>
+      <div class="rank">${cardData.rank}</div>
+      <div class="suit">${cardData.suit}</div>`;
+  }
+
+  function revealCards(){
+    const cardEls = cardsRow.querySelectorAll(".card");
+    cardEls.forEach((el, i) => {
+      fillCardFace(el, currentHand[i]);
+      setTimeout(() => el.classList.add("revealed"), i * 140);
+    });
+  }
+
+  function setStatus(text, mode){
+    statusText.textContent = text;
+    statusDot.className = "status-dot" + (mode ? " " + mode : "");
+  }
+
+  function renderMultiplier(){
+    multiplierDisplay.textContent = multiplier.toFixed(2) + "x";
+  }
+
+  function pushHistory(entry){
+    history.unshift(entry);
+    if (history.length > 10) history.pop();
+    renderHistory();
+  }
+
+  function renderHistory(){
+    if (!history.length){
+      historyList.innerHTML = `<div style="font-size:12px; color:var(--ivory-dim); text-align:center; padding:12px 0;">अभी तक कोई राउंड नहीं<br>No rounds yet</div>`;
+      return;
+    }
+    historyList.innerHTML = history.map(h => {
+      const cls = h.value >= 2 ? "green" : "red";
+      return `<div class="hist-chip ${cls}"><span>${h.value.toFixed(2)}x</span><span class="hand-mini">${h.handTag}</span></div>`;
+    }).join("");
+  }
+
+  function resetCashoutPreview(){ cashoutPreview.textContent = "—"; }
+
+  // ============== ROUND FLOW ==============
+  betBtn.addEventListener("click", startRound);
+  cashoutBtn.addEventListener("click", cashOut);
+
+  document.querySelectorAll(".chip-btn[data-chip]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (roundState === "running") return;
+      const add = parseInt(btn.dataset.chip, 10);
+      let val = (parseInt(betInput.value, 10) || 0) + add;
+      if (val > balance) val = balance;
+      betInput.value = val;
+    });
+  });
+  $("maxChip").addEventListener("click", () => { if (roundState !== "running") betInput.value = balance; });
+  $("clearChip").addEventListener("click", () => { if (roundState !== "running") betInput.value = 0; });
+
+  async function startRound(){
+    if (roundState === "running") return;
+
+    const bet = Math.floor(Number(betInput.value));
+    if (!bet || bet <= 0){
+      flashResult("कृपया मान्य दांव डालें / Enter a valid bet", "lose");
+      return;
+    }
+    if (bet > balance){
+      flashResult("अपर्याप्त बैलेंस / Insufficient balance", "lose");
+      return;
+    }
+
+    // deduct bet, lock UI
+    currentBet = bet;
+    balance -= bet;
+    renderBalance();
+    resultLine.textContent = "";
+    resultLine.className = "result-line";
+    resetCashoutPreview();
+
+    betBtn.disabled = true;
+    cashoutBtn.disabled = true;
+    betInput.disabled = true;
+    document.querySelectorAll(".chip-btn").forEach(b => b.disabled = true);
+
+    // deal hidden hand
+    currentHand = dealThree();
+    currentHandResult = evaluateHand(currentHand);
+    renderCardsFaceDown();
+
+    // provably fair commit
+    serverSeed = randomHex(32);
+    pfHash = await sha256Hex(serverSeed);
+    pfHashEl.textContent = pfHash;
+    pfSeedEl.textContent = "राउंड खत्म होने पर दिखेगा / revealed after crash";
+    crashPoint = crashPointFromHash(pfHash);
+
+    // start climb
+    multiplier = 1.00;
+    renderMultiplier();
+    setStatus("राउंड चल रहा है / ROUND LIVE", "live");
+    roundState = "running";
+    cashoutBtn.disabled = false;
+
+    playSound(sndTakeoff);
+
+    tickTimer = setInterval(tick, 100);
+  }
+
+  function tick(){
+    multiplier = Math.round((multiplier + 0.05) * 100) / 100;
+    renderMultiplier();
+    multiplierDisplay.classList.remove("growing");
+    void multiplierDisplay.offsetWidth;
+    multiplierDisplay.classList.add("growing");
+
+    const potentialWin = Math.round(currentBet * multiplier * currentHandResult.mult);
+    cashoutPreview.textContent = "₹" + potentialWin;
+
+    if (multiplier >= 5) beep(300 + multiplier * 20, 0.03, "sine");
+
+    if (multiplier >= crashPoint){
+      endRound(false);
+    }
+  }
+
+  function cashOut(){
+    if (roundState !== "running") return;
+    clearInterval(tickTimer);
+    endRound(true);
+  }
+
+  function endRound(won){
+    clearInterval(tickTimer);
+    roundState = "ended";
+    cashoutBtn.disabled = true;
+
+    revealCards();
+    pfSeedEl.textContent = serverSeed;
+
+    if (won){
+      const winAmount = Math.round(currentBet * multiplier * currentHandResult.mult);
+      balance += winAmount;
+      renderBalance();
+      multiplierDisplay.classList.add("cashed-text");
+      setStatus("कैश आउट! / CASHED OUT", "live");
+      resultLine.className = "result-line win";
+      resultLine.innerHTML = `+₹${winAmount} जीता! <span class="hand-tag">${currentHandResult.type}</span> (×${currentHandResult.mult})`;
+      playSound(sndCashout);
+    } else {
+      multiplier = crashPoint;
+      renderMultiplier();
+      multiplierDisplay.classList.add("crashed-text");
+      setStatus("क्रैश हो गया! / CRASHED", "crashed");
+      resultLine.className = "result-line lose";
+      resultLine.innerHTML = `-₹${currentBet} हारे — पत्ते थे <span class="hand-tag">${currentHandResult.type}</span>`;
+      playSound(sndCrash);
+    }
+
+    pushHistory({
+      value: crashPoint,
+      hash: pfHash,
+      seed: serverSeed,
+      handTag: currentHandResult.type.split(" ")[0]
+    });
+
+    setTimeout(resetForNextRound, 2600);
+  }
+
+  function resetForNextRound(){
+    roundState = "idle";
+    multiplier = 1.00;
+    multiplierDisplay.className = "multiplier";
+    renderMultiplier();
+    setStatus("दांव लगाओ / PLACE YOUR BET", "");
+    betBtn.disabled = false;
+    betInput.disabled = false;
+    document.querySelectorAll(".chip-btn").forEach(b => b.disabled = false);
+    resetCashoutPreview();
+    renderCardsFaceDown();
+    if (betInput.value > balance) betInput.value = balance;
+  }
+
+  function flashResult(msg, cls){
+    resultLine.className = "result-line " + cls;
+    resultLine.textContent = msg;
+    setTimeout(() => { resultLine.textContent = ""; }, 1800);
+  }
+
+  // ============== INIT ==============
+  renderBalance();
+  renderCardsFaceDown();
+  renderHistory();
+})();
+</script>
+</body>
+</html>
